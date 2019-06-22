@@ -48,7 +48,7 @@ app.delete('/items/:id', (req, res) => {
 app.post('/items', (req, res) => {
     let inv = req.body;
     var sql = "SET @id = ?;SET @name = ?;SET @qty = ?;SET @amount = ?; \
-    CALL EmployeeAddOrEdit(@id,@name,@qty, @amount);";
+    CALL ItemsAddOrEdit(@id,@name,@qty, @amount);";
     mysqlConnection.query(sql, [inv.id, inv.name, inv.qty, inv.amount], (err, rows, fields) => {
         if (!err)
             rows.forEach(element => {
@@ -64,7 +64,7 @@ app.post('/items', (req, res) => {
 app.put('/items', (req, res) => {
     let inv = req.body;
     var sql = "SET @id = ?;SET @name = ?;SET @qty = ?;SET @amount = ?; \
-    CALL EmployeeAddOrEdit(@id,@name,@qty, @amount);";
+    CALL ItemsAddOrEdit(@id,@name,@qty, @amount);";
     mysqlConnection.query(sql, [inv.id, inv.name, inv.qty, inv.amount], (err, rows, fields) => {
         if (!err)
             res.send('Updated successfully');
