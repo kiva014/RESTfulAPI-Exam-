@@ -26,7 +26,7 @@ app.listen(3000, () => console.log('Express server is runnig at port no : 3000')
 
 //Get all items
 app.get('/items', (req, res) => {
-    mysqlConnection.query('SELECT * FROM employee', (err, rows, fields) => {
+    mysqlConnection.query('SELECT * FROM items', (err, rows, fields) => {
         if (!err)
             res.send(rows);
         else
@@ -47,8 +47,8 @@ app.delete('/items/:id', (req, res) => {
 //Insert an items
 app.post('/items', (req, res) => {
     let inv = req.body;
-    var sql = "SET @EmpID = ?;SET @Name = ?;SET @EmpCode = ?;SET @Salary = ?; \
-    CALL EmployeeAddOrEdit(@EmpID,@Name,@EmpCode,@Salary);";
+    var sql = "SET @id = ?;SET @name = ?;SET @qty = ?;SET @amount = ?; \
+    CALL EmployeeAddOrEdit(@id,@name,@qty, @amount);";
     mysqlConnection.query(sql, [inv.id, inv.name, inv.qty, inv.amount], (err, rows, fields) => {
         if (!err)
             rows.forEach(element => {
